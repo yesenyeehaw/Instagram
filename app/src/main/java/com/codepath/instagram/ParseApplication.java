@@ -3,12 +3,17 @@ package com.codepath.instagram;
 import android.app.Application;
 
 import com.parse.Parse;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 public class ParseApplication extends Application {
 
     @Override
     public void onCreate() {
         super.onCreate();
+        // Register your parse models
+        ParseObject.registerSubclass(Post.class);
+
         Parse.initialize(new Parse.Configuration.Builder(this)
                 .applicationId("BELQdgNsUpKafXhgN0RxLC67Oseqy0cv5WBRwtuQ")
                 .clientKey("Y3UFma2xw3NJSiigGhEbDdgDKMTTeBjt2Fxa2FVA")
@@ -16,4 +21,5 @@ public class ParseApplication extends Application {
                 .build()
         );
     }
+
 }

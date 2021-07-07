@@ -46,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //TODO: change this back to not filled
                 btnPost.setImageResource(R.drawable.instagram_new_post_filled_24);
+                Intent i = new Intent(MainActivity.this, PostActivity.class);
+                startActivity(i);
             }
         });
     }
