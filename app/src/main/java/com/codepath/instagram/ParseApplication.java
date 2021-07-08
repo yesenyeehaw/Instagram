@@ -2,9 +2,9 @@ package com.codepath.instagram;
 
 import android.app.Application;
 
+import com.codepath.instagram.Models.Post;
 import com.parse.Parse;
 import com.parse.ParseObject;
-import com.parse.ParseQuery;
 
 public class ParseApplication extends Application {
 

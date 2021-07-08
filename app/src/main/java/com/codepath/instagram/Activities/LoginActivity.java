@@ -1,4 +1,4 @@
-package com.codepath.instagram;
+package com.codepath.instagram.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.codepath.instagram.R;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -101,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void goMainActivity(){
-        Intent i = new Intent(this, MainActivity.class);
+        Intent i = new Intent(this, FeedActivity.class);
         startActivity(i);
         finish();
     }

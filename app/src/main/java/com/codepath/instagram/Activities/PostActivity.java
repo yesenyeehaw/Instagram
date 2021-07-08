@@ -1,4 +1,4 @@
-package com.codepath.instagram;
+package com.codepath.instagram.Activities;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -18,8 +18,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
+import com.codepath.instagram.Models.Post;
+import com.codepath.instagram.R;
 import com.parse.FindCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseQuery;

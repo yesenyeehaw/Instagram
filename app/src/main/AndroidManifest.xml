@@ -25,17 +25,19 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/fileprovider" />
         </provider>
-        <activity android:name=".LoginActivity">
+        <activity android:name=".Activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".Activities.FeedActivity">
         </activity>
-        <activity android:name=".ProfileActivity">
+        <activity android:name=".Activities.ProfileActivity">
         </activity>
-        <activity android:name=".PostActivity">
+        <activity android:name=".Activities.PostActivity">
+        </activity>
+        <activity android:name=".Activities.DetailsActivity">
         </activity>
     </application>
 
