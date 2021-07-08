@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
+import com.codepath.instagram.Adapters.PostsAdapter;
 import com.codepath.instagram.Models.Post;
 import com.codepath.instagram.R;
 import com.parse.FindCallback;

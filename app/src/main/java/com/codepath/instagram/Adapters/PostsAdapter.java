@@ -18,6 +18,8 @@ import com.codepath.instagram.Models.Post;
 import com.codepath.instagram.R;
 import com.parse.ParseFile;
 
+import org.parceler.Parcels;
+
 import java.util.Date;
 import java.util.List;
 
@@ -56,7 +58,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             public void onClick(View v) {
                 Log.i(TAG, "onClick success");
                 Intent i = new Intent(context, DetailsActivity.class);
-                i.putExtra(Post.class.getName(), 0);
+                i.putExtra(Post.class.getName(), Parcels.wrap(post));
                 context.startActivity(i);
             }
         });
