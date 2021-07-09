@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.codepath.instagram.Adapters.PostsAdapter;
+import com.codepath.instagram.EndlessRecyclerViewScrollListener;
 import com.codepath.instagram.Models.Post;
 import com.codepath.instagram.R;
 import com.parse.FindCallback;
@@ -30,6 +31,7 @@ public class FeedActivity extends AppCompatActivity {
     ImageButton btnPost;
     ImageButton btnHome;
     private RecyclerView rvPosts;
+    private EndlessRecyclerViewScrollListener scrollListener;
 
     protected PostsAdapter adapter;
     protected List<Post> allPosts;
@@ -51,8 +53,17 @@ public class FeedActivity extends AppCompatActivity {
         // set the adapter on the recycler view
         rvPosts.setAdapter(adapter);
         // set the layout manager on the recycler view
-        rvPosts.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        rvPosts.setLayoutManager(linearLayoutManager);
         // query posts from Parstagram
+        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                loadNextDataFromApi(page);
+            }
+        };
+        // Adding the scroll listener to recyclerView
+        rvPosts.addOnScrollListener(scrollListener);
         queryPosts();
 
         btnProfile.setOnClickListener(new View.OnClickListener() {
@@ -91,6 +102,36 @@ public class FeedActivity extends AppCompatActivity {
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
 
+    }
+    public void loadNextDataFromApi(int offset) {
+        // specify what type of data we want to query - Post.class
+        ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
+        // include data referred by user key
+        query.include(Post.KEY_USER);
+        // limit query to latest 20 items
+        query.setLimit(20);
+        // order posts by creation date (newest first)
+        query.addDescendingOrder("createdAt");
+        // start an asynchronous call for posts
+        query.findInBackground(new FindCallback<Post>() {
+            @Override
+            public void done(List<Post> posts, ParseException e) {
+                if (e != null) {
+                    Toast.makeText(FeedActivity.this, "Issue loading feed...", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // for debugging purposes let's print every post description to logcat
+                for (Post post : posts) {
+                    Log.i(TAG, "Post: " + post.getDescription() + ", username: " + post.getUser().getUsername());
+                }
+
+                // save received posts to list and notify adapter of new data
+                allPosts.addAll(posts);
+                // Constraints the actual endless scrolling to reshowing the same feed
+                adapter.notifyItemRangeInserted(allPosts.size(), posts.size());
+            }
+        });
     }
 
     //Implementing refresh
